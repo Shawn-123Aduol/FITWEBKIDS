@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FITWEBKIDS - Meet Our Heroes</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #FF6B6B;
+            --secondary: #4ECDC4;
+            --accent: #FFE66D;
+            --dark: #292F36;
+            --light: #F7FFF7;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Comic Neue', cursive;
+            background-color: var(--light);
+            color: var(--dark);
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        .main-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-family: 'Fredoka One', cursive;
+            font-size: 2rem;
+            color: var(--primary);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            margin-top: 70px;
+            padding: 4rem 2rem;
+            text-align: center;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+        }
+
+        .hero-section h1 {
+            font-family: 'Fredoka One', cursive;
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Heroes Grid */
+        .heroes-container {
+            padding: 4rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .heroes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .hero-card {
+            background-color: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .hero-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        .hero-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+
+        .hero-info {
+            padding: 1.5rem;
+        }
+
+        .hero-info h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .hero-quote {
+            font-style: italic;
+            margin-bottom: 1rem;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .hero-quote::before {
+            content: '"';
+            position: absolute;
+            left: 0;
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+
+        .transformation {
+            display: flex;
+            align-items: center;
+            margin-top: 1rem;
+        }
+
+        .transformation span {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            background-color: var(--accent);
+        }
+
+        /* About Developer */
+        .developer-section {
+            background-color: #f0f8ff;
+            padding: 4rem 2rem;
+        }
+
+        .developer-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .developer-image {
+            width: 100%;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .developer-info h2 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-family: 'Fredoka One', cursive;
+        }
+
+        .developer-details {
+            margin-bottom: 1rem;
+        }
+
+        .developer-details p {
+            margin-bottom: 0.5rem;
+        }
+
+        .developer-bio {
+            line-height: 1.6;
+        }
+
+        .interests {
+            margin-top: 1rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .interest-tag {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            background-color: var(--secondary);
+            border-radius: 20px;
+            font-size: 0.8rem;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .main-nav {
+                flex-direction: column;
+                padding: 1rem;
+            }
+
+            .nav-links {
+                margin-top: 1rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .hero-section h1 {
+                font-size: 2rem;
+            }
+
+            .developer-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="main-nav">
+        <div class="logo">FITWEBKIDS</div>
+        <ul class="nav-links">
+            <li><a href="home.html">Home</a></li>
+            <li><a href="adventure.html">Adventure</a></li>
+            <li><a href="dance.html">Dance</a></li>
+            <li><a href="fitness.html">Fitness</a></li>
+            <li><a href="breathing.html">Breathing</a></li>
+            <li><a href="yoga.html" class="active">Yoga</a></li>
+            <li><a href="heroes.html">Meet Heroes</a></li>
+            <li><a href="sign.html">Sign Up</a></li>
+            <li><a href="login.html">Log In</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <h1>Meet Our Heroes</h1>
+        <p>Real stories of transformation and triumph!</p>
+    </section>
+
+    <!-- Heroes Grid -->
+    <div class="heroes-container">
+        <h2 class="section-title">Transformation Stories</h2>
+        <div class="heroes-grid">
+            <!-- Hero 1 -->
+            <div class="hero-card">
+                <img src="swimmer.png" alt="Before and after" class="hero-image">
+                <div class="hero-info">
+                    <h3>Alex's Journey</h3>
+                    <p class="hero-quote">"I lacked confidence and avoided sports because I thought I wasn't good enough."</p>
+                    <div class="transformation">
+                        <span>Now: Competitive swimmer!</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hero 2 -->
+            <div class="hero-card">
+                <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b" alt="Before and after" class="hero-image">
+                <div class="hero-info">
+                    <h3>Jamie's Story</h3>
+                    <p class="hero-quote">"I used to get tired just walking to school. Now I run marathons!"</p>
+                    <div class="transformation">
+                        <span>Lost 30kg in 1 year</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hero 3 -->
+            <div class="hero-card">
+                <img src="https://images.unsplash.com/photo-1541532713592-79a0317b6b77" alt="Before and after" class="hero-image">
+                <div class="hero-info">
+                    <h3>Taylor's Change</h3>
+                    <p class="hero-quote">"I was bullied for my weight. Now I'm stronger than my bullies!"</p>
+                    <div class="transformation">
+                        <span>Gained muscle and confidence</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- About Developer -->
+    <section class="developer-section">
+        <div class="developer-container">
+            <div>
+                <img src="shawn.png" alt="Shawn Adud" class="developer-image">
+            </div>
+            <div class="developer-info">
+                <h2>ABOUT THE DEVELOPER</h2>
+                <div class="developer-details">
+                    <p><strong>Name:</strong> Shawn Aduol</p>
+                    <p><strong>Age:</strong> 16</p>
+                    <p><strong>Nationality:</strong> Kenya</p>
+                </div>
+                <div class="developer-bio">
+                    <p>Hi, I'm Shawn Aduol, a 16-year-old tech enthusiast from Kenya with a passion for innovation 💻, fitness 🏋️, and environmental sustainability 🌱.</p>
+                    <p>I believe technology can make the world a better place! From developing digital solutions to promoting healthy lifestyles, I'm always looking for ways to create positive change.</p>
+                </div>
+                <div class="interests">
+                    <span class="interest-tag">Coding 💻</span>
+                    <span class="interest-tag">Fitness 🏋️</span>
+                    <span class="interest-tag">Sustainability 🌱</span>
+                    <span class="interest-tag">Entrepreneurship 💡</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="copyright">
+            @copyright.fitwebkids.com
+        </div>
+    </footer>
+</body>
+</html>

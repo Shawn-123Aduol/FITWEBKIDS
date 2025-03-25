@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FITWEBKIDS - Sign Up</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="home.css">
+    <style>
+        /* Sign Up Page Specific Styles */
+        .signup-container {
+            max-width: 500px;
+            margin: 100px auto 50px;
+            padding: 2rem;
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            animation: fadeIn 1s ease;
+        }
+
+        .signup-title {
+            font-family: 'Fredoka One', cursive;
+            color: var(--primary);
+            text-align: center;
+            margin-bottom: 2rem;
+            font-size: 2rem;
+        }
+
+        .signup-form {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .form-group {
+            display: grid;
+            gap: 0.5rem;
+        }
+
+        .form-group label {
+            font-weight: bold;
+            color: var(--dark);
+        }
+
+        .form-group input {
+            padding: 1rem;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.2);
+        }
+
+        .password-requirements {
+            margin-top: 0.5rem;
+            font-size: 0.85rem;
+            color: #666;
+        }
+
+        .requirement {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin: 0.3rem 0;
+            transition: color 0.3s ease;
+        }
+
+        .requirement.met {
+            color: var(--accent);
+        }
+
+        .requirement.unmet {
+            color: #dc3545;
+        }
+
+        .requirement.met::before {
+            content: '✓';
+        }
+
+        .requirement.unmet::before {
+            content: '×';
+        }
+
+        .signup-btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 1rem;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+
+        .signup-btn:hover {
+            background-color: #ff5252;
+            transform: translateY(-2px);
+        }
+
+        .signup-btn:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+
+        .login-link {
+            text-align: center;
+            margin-top: 1.5rem;
+            color: var(--dark);
+        }
+
+        .login-link a {
+            color: var(--primary);
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .error-message {
+            color: #dc3545;
+            font-size: 0.875rem;
+            margin-top: 0.5rem;
+            display: none;
+        }
+
+        .success-message {
+            display: none;
+            background: rgba(52, 168, 83, 0.1);
+            border: 1px solid var(--accent);
+            padding: 1rem;
+            border-radius: 10px;
+            text-align: center;
+            margin-bottom: 1rem;
+            color: var(--accent);
+        }
+
+        .loading-spinner {
+            display: none;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,0.3);
+            border-top: 3px solid white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @media (max-width: 768px) {
+            .signup-container {
+                margin: 80px 1rem 2rem;
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Fixed Navigation (same as home page) -->
+    <nav class="main-nav">
+        <div class="logo">FITWEBKIDS</div>
+        <ul class="nav-links">
+            <li><a href="home.html">Home</a></li>
+            <li><a href="adventure.html">Adventure</a></li>
+            <li><a href="dance.html">Dance</a></li>
+            <li><a href="fitness.html">Fitness</a></li>
+            <li><a href="breathing.html">Breathing</a></li>
+            <li><a href="yoga.html" class="active">Yoga</a></li>
+            <li><a href="heroes.html">Meet Heroes</a></li>
+            <li><a href="sign.html">Sign Up</a></li>
+            <li><a href="login.html">Log In</a></li>
+        </ul>
+    </nav>
+    <!-- Sign Up Form -->
+    <div class="signup-container">
+        <h1 class="signup-title">SIGN UP</h1>
+        <div class="success-message" id="successMessage">
+            Registration successful! Redirecting to login...
+        </div>
+        <form id="signupForm" class="signup-form">
+            <div class="form-group">
+                <label for="username">Enter your username</label>
+                <input type="text" id="username" required minlength="3">
+                <div class="error-message" id="username-error"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="guardian-email">Enter guardian's email</label>
+                <input type="email" id="guardian-email" required>
+                <div class="error-message" id="email-error"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Create password</label>
+                <input type="password" id="password" required>
+                <div class="password-requirements">
+                    <div class="requirement" id="length">At least 8 characters</div>
+                    <div class="requirement" id="uppercase">One uppercase letter</div>
+                    <div class="requirement" id="number">One number</div>
+                    <div class="requirement" id="special">One special character</div>
+                </div>
+                <div class="error-message" id="password-error"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="confirm-password">Confirm password</label>
+                <input type="password" id="confirm-password" required>
+                <div class="error-message" id="confirm-password-error"></div>
+            </div>
+
+            <button type="submit" class="signup-btn" id="submitBtn">
+                <span class="btn-text">SIGN UP</span>
+                <div class="loading-spinner"></div>
+            </button>
+        </form>
+
+        <div class="login-link">
+            Already have an account? <a href="login.html">Log In</a>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="copyright">
+            © 2025 FITWEBKIDS. All Rights Reserved.
+        </div>
+    </footer>
+
+    <script>
+        const form = document.getElementById('signupForm');
+        const passwordInput = document.getElementById('password');
+        const confirmPasswordInput = document.getElementById('confirm-password');
+        const submitBtn = document.getElementById('submitBtn');
+
+        const requirements = {
+            length: str => str.length >= 8,
+            uppercase: str => /[A-Z]/.test(str),
+            number: str => /[0-9]/.test(str),
+            special: str => /[^A-Za-z0-9]/.test(str)
+        };
+
+        function updateRequirements(password) {
+            let allMet = true;
+            Object.keys(requirements).forEach(req => {
+                const element = document.getElementById(req);
+                if (requirements[req](password)) {
+                    element.classList.remove('unmet');
+                    element.classList.add('met');
+                } else {
+                    element.classList.remove('met');
+                    element.classList.add('unmet');
+                    allMet = false;
+                }
+            });
+            return allMet;
+        }
+
+        passwordInput.addEventListener('input', function() {
+            updateRequirements(this.value);
+        });
+
+        function showError(elementId, message) {
+            const errorElement = document.getElementById(elementId);
+            errorElement.textContent = message;
+            errorElement.style.display = 'block';
+        }
+
+        function clearErrors() {
+            document.querySelectorAll('.error-message').forEach(err => err.style.display = 'none');
+        }
+
+        function isValidEmail(email) {
+            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+        }
+
+        form.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            clearErrors();
+
+            const username = document.getElementById('username').value;
+            const guardianEmail = document.getElementById('guardian-email').value;
+            const password = passwordInput.value;
+            const confirmPassword = confirmPasswordInput.value;
+
+            let hasError = false;
+
+            // Validation
+            if (username.length < 3) {
+                showError('username-error', 'Username must be at least 3 characters');
+                hasError = true;
+            }
+
+            if (!isValidEmail(guardianEmail)) {
+                showError('email-error', 'Please enter a valid email address');
+                hasError = true;
+            }
+
+            if (!updateRequirements(password)) {
+                showError('password-error', 'Password does not meet requirements');
+                hasError = true;
+            }
+
+            if (password !== confirmPassword) {
+                showError('confirm-password-error', 'Passwords do not match');
+                hasError = true;
+            }
+
+            if (hasError) return;
+
+            // Show loading state
+            submitBtn.disabled = true;
+            const btnText = submitBtn.querySelector('.btn-text');
+            const spinner = submitBtn.querySelector('.loading-spinner');
+            btnText.style.display = 'none';
+            spinner.style.display = 'block';
+
+            try {
+                // Simulate API call
+                await new Promise(resolve => setTimeout(resolve, 1500));
+
+                // Store user data
+                const users = JSON.parse(localStorage.getItem('users')) || [];
+                
+                // Check if username or email already exists
+                if (users.some(user => user.username === username)) {
+                    showError('username-error', 'Username already exists');
+                    throw new Error('Username exists');
+                }
+
+                if (users.some(user => user.guardianEmail === guardianEmail)) {
+                    showError('email-error', 'Email already registered');
+                    throw new Error('Email exists');
+                }
+
+                // Add new user
+                users.push({
+                    username,
+                    guardianEmail,
+                    password,
+                    joinDate: new Date().toISOString(),
+                    streak: 0,
+                    lastActive: new Date().toISOString(),
+                    activities: []
+                });
+
+                localStorage.setItem('users', JSON.stringify(users));
+
+                // Show success message
+                document.getElementById('successMessage').style.display = 'block';
+
+                // Redirect to login
+                setTimeout(() => {
+                    window.location.href = 'login.html';
+                }, 2000);
+
+            } catch (error) {
+                if (!error.message.includes('exists')) {
+                    showError('password-error', 'An error occurred. Please try again.');
+                }
+            } finally {
+                submitBtn.disabled = false;
+                btnText.style.display = 'block';
+                spinner.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>

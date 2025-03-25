@@ -1,0 +1,79 @@
+.password-requirements {
+    font-size: 0.8rem;
+    color: #666;
+    margin-top: 0.5rem;
+}
+
+.requirement {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0.2rem 0;
+}
+
+.nav-links {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    list-style: none;
+}
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+}
+
+.nav-links a:hover {
+    background: rgba(255,255,255,0.2);
+}
+
+.logo {
+    text-align: center;
+    color: white;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.requirement.met::before {
+    content: '✓';
+    color: var(--accent);
+}
+
+.requirement.unmet::before {
+    content: '×';
+    color: #dc3545;
+}
+
+.success-message {
+    display: none;
+    background: rgba(52, 168, 83, 0.1);
+    border: 1px solid var(--accent);
+    padding: 1rem;
+    border-radius: 10px;
+    text-align: center;
+    margin-bottom: 1rem;
+    color: var(--accent);
+}
+
+.character-container {
+    position: relative;
+    width: 200px;
+    height: 200px;
+}
+
+.character-container img {
+    position: absolute;
+    transition: all 0.5s ease;
+}
+
+.character-container:hover img:first-child {
+    transform: translateX(-20px) rotate(-5deg);
+}
+
+.character-container:hover img:last-child {
+    transform: translateX(20px) rotate(5deg);
+}

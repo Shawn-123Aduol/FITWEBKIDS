@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FITWEBKIDS - Dance & Zumba</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #FF6B6B;
+            --secondary: #4ECDC4;
+            --accent: #FFE66D;
+            --dark: #292F36;
+            --light: #F7FFF7;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Comic Neue', cursive;
+            background-color: var(--light);
+            color: var(--dark);
+            overflow-x: hidden;
+        }
+
+        /* Consistent Navigation */
+        .main-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-family: 'Fredoka One', cursive;
+            font-size: 2rem;
+            color: var(--primary);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        /* Dance Page Content */
+        .dance-hero {
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1547153760-18fc86324498') center/cover;
+            height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            margin-top: 70px;
+        }
+
+        .dance-hero h1 {
+            font-family: 'Fredoka One', cursive;
+            font-size: 3rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .content-section {
+            padding: 3rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-family: 'Fredoka One', cursive;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            font-size: 2rem;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 80px;
+            height: 4px;
+            background-color: var(--secondary);
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .benefit-card {
+            background-color: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .benefit-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .benefit-card h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .benefit-card ul {
+            list-style-type: none;
+        }
+
+        .benefit-card li {
+            margin-bottom: 0.8rem;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .benefit-card li::before {
+            content: '🌟';
+            position: absolute;
+            left: 0;
+        }
+
+        .safety-box {
+            background-color: rgba(255,255,255,0.85);
+            backdrop-filter: blur(5px);
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 3rem 0;
+            border-left: 5px solid var(--accent);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .safety-box h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .safety-tip {
+            margin-bottom: 1rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .safety-tip::before {
+            content: '🛡️';
+            position: absolute;
+            left: 0;
+        }
+
+        .marvel-character {
+            text-align: center;
+            margin: 2rem 0;
+        }
+
+        .marvel-character img {
+            max-width: 200px;
+            height: auto;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .marvel-character p {
+            font-style: italic;
+            margin-top: 0.5rem;
+            color: var(--dark);
+        }
+
+        /* Video Section Styles */
+        .difficulty-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .difficulty-tab {
+            padding: 0.8rem 1.5rem;
+            background-color: white;
+            border: 2px solid var(--primary);
+            border-radius: 30px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .difficulty-tab:hover, .difficulty-tab.active {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .video-card {
+            background-color: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .video-info {
+            padding: 1rem;
+        }
+
+        .video-info h3 {
+            color: var(--dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .video-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 0.8rem;
+            font-size: 0.9rem;
+        }
+
+        .difficulty {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .easy {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .medium {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+
+        .hard {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+
+        .calories {
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .dance-hero h1 {
+                font-size: 2rem;
+            }
+            
+            .benefits-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Consistent Navigation Bar -->
+    <nav class="main-nav">
+        <div class="logo">FITWEBKIDS</div>
+        <ul class="nav-links">
+            <li><a href="home.html" class="active">Home</a></li>
+            <li><a href="adventure.html">Adventure</a></li>
+            <li><a href="dance.html">Dance</a></li>
+            <li><a href="yoga.html">Yoga</a></li>
+            <li><a href="breathing.html">Breathing</a></li>
+            <li><a href="heroes.html">Meet Heroes</a></li>
+            <li><a href="sign.html">Sign Up</a></li>
+            <li><a href="login.html">Log In</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="dance-hero">
+        <h1>Dance & Zumba: A Fun Way to Stay Fit! 💃🕺</h1>
+    </section>
+
+    <!-- Main Content -->
+    <div class="content-section">
+        <section>
+            <h2 class="section-title">Why Dance & Zumba? ✨</h2>
+            <p>Dance and Zumba are fantastic ways to exercise! They help improve cardiovascular health ❤️, strengthen muscles 💪, boost mood 😊, and enhance coordination 🤸. Plus, they're super fun with friends! 👯</p>
+            
+            <div class="marvel-character">
+                <img src="spider.png" alt="Spider-Man Dancing">
+                <p>"Even superheroes need to dance! It keeps us agile for fighting crime!" - Spider-Man 🕷️</p>
+            </div>
+        </section>
+
+        <section>
+            <h2 class="section-title">Benefits of Dance & Zumba 🌈</h2>
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <h3>Physical Benefits</h3>
+                    <ul>
+                        <li>Improves heart health ❤️</li>
+                        <li>Builds strong muscles 💪</li>
+                        <li>Enhances flexibility 🤸</li>
+                        <li>Boosts energy levels ⚡</li>
+                    </ul>
+                </div>
+                <div class="benefit-card">
+                    <h3>Mental Benefits</h3>
+                    <ul>
+                        <li>Reduces stress 🧘</li>
+                        <li>Improves mood 😊</li>
+                        <li>Boosts confidence 💃</li>
+                        <li>Enhances focus 🎯</li>
+                    </ul>
+                </div>
+                <div class="benefit-card">
+                    <h3>Social Benefits</h3>
+                    <ul>
+                        <li>Makes new friends 👫</li>
+                        <li>Teamwork skills 👯</li>
+                        <li>Cultural awareness 🌍</li>
+                        <li>Family bonding 👨‍👩‍👧‍👦</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Safety Box -->
+        <div class="safety-box">
+            <h3>🛡️ Safety First! Dance Injury Prevention 🛡️</h3>
+            <div class="safety-tip">Always warm up for 5-10 minutes before dancing 🏃‍♂️ (jumping jacks, arm circles, light stretching)</div>
+            <div class="safety-tip">Wear proper shoes 👟 with good support (no flip-flops or socks on slippery floors!)</div>
+            <div class="safety-tip">Stay hydrated 💧 - drink water before, during, and after dancing</div>
+            <div class="safety-tip">Don't push beyond your limits 🛑 - if something hurts, STOP immediately</div>
+            
+            <h3 style="margin-top: 2rem;">🚑 Common Dance Injuries & Quick Fixes 🚑</h3>
+            <div class="safety-tip"><strong>Sprained ankle</strong> - Rest, Ice for 15min ❄️, Compress with bandage, Elevate (RICE method)</div>
+            <div class="safety-tip"><strong>Sore muscles</strong> - Gentle stretching 🧘, warm bath 🛀, light massage</div>
+            <div class="safety-tip"><strong>Knee pain</strong> - Reduce impact moves, strengthen with squats (with proper form!)</div>
+            <div class="safety-tip"><strong>Dehydration</strong> - Drink water or sports drink immediately 🚰, rest in cool area</div>
+        </div>
+
+        <!-- Dance Videos Section -->
+        <section>
+            <h2 class="section-title">Dance Workout Videos 🎥</h2>
+            
+            <div class="difficulty-tabs">
+                <button class="difficulty-tab active" data-difficulty="all">All Levels</button>
+                <button class="difficulty-tab" data-difficulty="easy">Easy 😊</button>
+                <button class="difficulty-tab" data-difficulty="medium">Medium 💪</button>
+                <button class="difficulty-tab" data-difficulty="hard">Hard 🔥</button>
+            </div>
+
+            <div class="video-grid">
+                <!-- Easy Difficulty Videos -->
+                <div class="video-card" data-difficulty="easy" data-calories="120">
+                    <div class="video-container">
+                        <iframe src="https://www.youtube.com/embed/UXur24WJtYg?si=IljzpU09Vw2ql-2U" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3>Kids Zumba Party</h3>
+                        <div class="video-meta">
+                            <span class="difficulty easy">Easy</span>
+                            <span class="calories">🔥 120 cal/30min</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Additional videos would go here following the same pattern -->
+                <!-- Medium Difficulty Videos -->
+                <div class="video-card" data-difficulty="medium" data-calories="180">
+                    <div class="video-container">
+                        <iframe src="https://www.youtube.com/embed/FiXCxfWWwPo?si=ap7LXPlHFxu2cx0m" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3>Kids Hip Hop Workout</h3>
+                        <div class="video-meta">
+                            <span class="difficulty medium">Medium</span>
+                            <span class="calories">🔥 180 cal/30min</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hard Difficulty Videos -->
+                <div class="video-card" data-difficulty="hard" data-calories="250">
+                    <div class="video-container">
+                        <iframe src="https://www.youtube.com/embed/iiiuFwh_MDM?si=2iAW9ehRiLAqCO11" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3>Kids Bop dance along</h3>
+                        <div class="video-meta">
+                            <span class="difficulty hard">Hard</span>
+                            <span class="calories">🔥 250 cal/30min</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Additional videos from other platforms -->
+                <div class="video-card" data-difficulty="easy" data-calories="115">
+                    <div class="video-container">
+                        <iframe src="https://www.youtube.com/embed/KcVHDUtEvkw?si=450OUmunbZwVy2VO" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3>Best day of my life</h3>
+                        <div class="video-meta">
+                            <span class="difficulty easy">Easy</span>
+                            <span class="calories">🔥 115 cal/30min</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="copyright">
+            © 2025 FITWEBKIDS. All Rights Reserved.
+        </div>
+    </footer>
+
+    <script>
+        // Video difficulty filtering
+        const difficultyTabs = document.querySelectorAll('.difficulty-tab');
+        const videoCards = document.querySelectorAll('.video-card');
+
+        difficultyTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Remove active class from all tabs
+                difficultyTabs.forEach(t => t.classList.remove('active'));
+                // Add active class to clicked tab
+                tab.classList.add('active');
+                
+                const difficulty = tab.dataset.difficulty;
+                
+                // Filter videos
+                videoCards.forEach(card => {
+                    if (difficulty === 'all' || card.dataset.difficulty === difficulty) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+    </script>
+</body>

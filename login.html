@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FITWEBKIDS - Login</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="home.css">
+    <style>
+        /* Login Page Specific Styles */
+        .login-container {
+            max-width: 500px;
+            margin: 100px auto 50px;
+            padding: 2rem;
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            animation: fadeIn 1s ease;
+        }
+
+        .login-title {
+            font-family: 'Fredoka One', cursive;
+            color: var(--primary);
+            text-align: center;
+            margin-bottom: 2rem;
+            font-size: 2rem;
+        }
+
+        .login-form {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .form-group {
+            display: grid;
+            gap: 0.5rem;
+        }
+
+        .form-group label {
+            font-weight: bold;
+            color: var(--dark);
+        }
+
+        .form-group input {
+            padding: 1rem;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.2);
+        }
+
+        .login-btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 1rem;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+
+        .login-btn:hover {
+            background-color: #ff5252;
+            transform: translateY(-2px);
+        }
+
+        .signup-link {
+            text-align: center;
+            margin-top: 1.5rem;
+            color: var(--dark);
+        }
+
+        .signup-link a {
+            color: var(--primary);
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .error-message {
+            color: #dc3545;
+            font-size: 0.875rem;
+            margin-top: 0.5rem;
+            display: none;
+        }
+
+        .loading-spinner {
+            display: none;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,0.3);
+            border-top: 3px solid white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @media (max-width: 768px) {
+            .login-container {
+                margin: 80px 1rem 2rem;
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Fixed Navigation (same as home page) -->
+    <nav class="main-nav">
+        <div class="logo">FITWEBKIDS</div>
+        <ul class="nav-links">
+            <li><a href="home.html">Home</a></li>
+            <li><a href="adventure.html">Adventure</a></li>
+            <li><a href="dance.html">Dance</a></li>
+            <li><a href="yoga.html">Yoga</a></li>
+            <li><a href="breathing.html">Breathing</a></li>
+            <li><a href="#meet-heroes">Meet Heroes</a></li>
+            <li><a href="sign.html">Sign Up</a></li>
+            <li><a href="login.html" class="active">Log In</a></li>
+        </ul>
+    </nav>
+
+    <!-- Login Form -->
+    <div class="login-container">
+        <h1 class="login-title">LOG IN</h1>
+        <form id="loginForm" class="login-form">
+            <div class="form-group">
+                <label for="username">Enter your username</label>
+                <input type="text" id="username" required>
+                <div class="error-message" id="username-error"></div>
+            </div>
+            
+            <div class="form-group">
+                <label for="guardian-email">Enter guardian's email</label>
+                <input type="email" id="guardian-email" required>
+                <div class="error-message" id="email-error"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Enter your password</label>
+                <input type="password" id="password" required>
+                <div class="error-message" id="password-error"></div>
+            </div>
+
+            <button type="submit" class="login-btn">
+                <span class="btn-text">LOG IN</span>
+                <div class="loading-spinner"></div>
+            </button>
+        </form>
+
+        <div class="signup-link">
+            Don't have an account? <a href="sign.html">Sign Up</a>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="copyright">
+            © 2025 FITWEBKIDS. All Rights Reserved.
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const username = document.getElementById('username').value;
+            const guardianEmail = document.getElementById('guardian-email').value;
+            const password = document.getElementById('password').value;
+            
+            // Reset error messages
+            document.querySelectorAll('.error-message').forEach(err => {
+                err.style.display = 'none';
+                err.textContent = '';
+            });
+            
+            // Validation
+            let hasError = false;
+            
+            if (!username) {
+                showError('username-error', 'Username is required');
+                hasError = true;
+            }
+            
+            if (!guardianEmail) {
+                showError('email-error', 'Guardian email is required');
+                hasError = true;
+            } else if (!isValidEmail(guardianEmail)) {
+                showError('email-error', 'Please enter a valid email address');
+                hasError = true;
+            }
+            
+            if (!password) {
+                showError('password-error', 'Password is required');
+                hasError = true;
+            }
+            
+            if (hasError) return;
+
+            // Show loading spinner
+            const btn = e.target.querySelector('.login-btn');
+            const btnText = btn.querySelector('.btn-text');
+            const spinner = btn.querySelector('.loading-spinner');
+            
+            btnText.style.display = 'none';
+            spinner.style.display = 'block';
+            btn.disabled = true;
+            
+            try {
+                // Simulate API call
+                await new Promise(resolve => setTimeout(resolve, 1500));
+                
+                // Check localStorage for user data
+                const users = JSON.parse(localStorage.getItem('users')) || [];
+                const user = users.find(u => 
+                    u.username === username && 
+                    u.guardianEmail === guardianEmail &&
+                    u.password === password
+                );
+                
+                if (user) {
+                    localStorage.setItem('currentUser', JSON.stringify(user));
+                    window.location.href = 'home.html';
+                } else {
+                    showError('password-error', 'Invalid username or password');
+                }
+            } catch (error) {
+                showError('password-error', 'An error occurred. Please try again.');
+            } finally {
+                btnText.style.display = 'block';
+                spinner.style.display = 'none';
+                btn.disabled = false;
+            }
+        });
+
+        function showError(elementId, message) {
+            const errorElement = document.getElementById(elementId);
+            errorElement.textContent = message;
+            errorElement.style.display = 'block';
+            errorElement.style.animation = 'fadeIn 0.3s ease';
+        }
+
+        function isValidEmail(email) {
+            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+        }
+    </script>
+</body>
+</html>
